@@ -10,8 +10,17 @@ i:hover, a:hover, .active {
     padding: 10%;
 }
 
+.py-1x {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
 .mt-1x {
     margin-top: 7%;
+}
+
+.nl {
+    font-size: 1.6rem;
 }
 
 /* Adjust the text size of FullCalendar events */
