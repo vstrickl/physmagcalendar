@@ -1,0 +1,9 @@
+<div class="bg-light me-3 p-3 p-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+        <h2 class="display-5">Boxing</h2>
+        {% for b in boxing %}
+        <p>{% for c in b.class_name.all %}{{ c.name }}{% endfor %}: {{ b.day_time }}</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'boxing' %}" role="button" class="btn btn-dark">View Live Schedule</a>
+</div>

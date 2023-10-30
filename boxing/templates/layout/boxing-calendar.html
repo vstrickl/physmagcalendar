@@ -1,1 +1,27 @@
-<iframe src="https://calendar.google.com/calendar/embed?height=800&wkst=1&bgcolor=%23ffffff&ctz=America%2FLos_Angeles&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=WEEK&src=OTA3OWRiZTRjOTk3ZjU0ZjMyMDM2ODE0Njc0YjAwYjRiZWQ3NzcyMjI4Zjc2MGMyZmY0MGJjZmU3YTA0NDJhZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D81B60" style="border-width:0" width="1080" height="800" frameborder="0" scrolling="no"></iframe>
+<script>
+    const apiKey = "{{ google_api_key }}";
+    const calendarId = "{{ boxing_calendar_id }}";
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let calendarEl = document.getElementById('draw_calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            
+            googleCalendarApiKey: apiKey,
+            events: {
+                googleCalendarId: calendarId,
+            },
+            initialView:'timeGridWeek',
+            themeSystem: 'bootstrap5',
+            headerToolbar:{
+            start: 'prev', // will normally be on the left. if RTL, will be on the right
+            center: 'title',
+            end: 'today timeGridDay,timeGridWeek,dayGridMonth next' // will normally be on the right. if RTL, will be on the left
+            }
+        });
+        calendar.render();
+    });
+</script>
+
+<div class="m-5">
+    <div id="draw_calendar"></div>
+</div>

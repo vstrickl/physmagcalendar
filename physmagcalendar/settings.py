@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,11 +125,18 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Google Calendar APIs
 
@@ -140,3 +148,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
+
+# FullCalendar Secrets
+# https://fullcalendar.io/
+
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+BOXING_CALENDAR_ID = config('BOXING_CALENDAR_ID')
+STUDIO_CALENDAR_ID = config('STUDIO_CALENDAR_ID')
+FITNESS_CALENDAR_ID = config('FITNESS_CALENDAR_ID')
+OWEIGHTLIFTING_CALENDAR_ID = config('OWEIGHTLIFTING_CALENDAR_ID')
+
+# CSRF Tokens
+# https://docs.djangoproject.com/en/4.2/howto/csrf/
+
+CSRF_TRUSTED_ORIGINS = ['https://calendar.physiquemagnifique.com/','http://127.0.0.1:8000']
