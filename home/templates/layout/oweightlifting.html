@@ -1,9 +1,11 @@
-<div class="bg-light me-3 p-3 p-5 text-center overflow-hidden">
+<div class="col-md-12 col-lg-6">
+  <div class="bg-light mb-3 p-3 p-md-5 text-center overflow-hidden">
     <div class="my-3 p-3">
       <h2 class="display-5">Olympic Weightlifting</h2>
       {% for o in lifting %}
-        <p>{% for c in o.class_name.all %}{{ c.name }}{% endfor %}: {{ o.day_time }}</p>
+        <p class="fs-3">{% for c in o.class_name.all %}{{ c.name }}{% endfor %}: {{ o.day_time }}</p>
       {% endfor %}
     </div>
-    <a href="{% url 'lift' %}" role="button" class="btn btn-dark">View Live Schedule</a>
- </div>
+    <a href="{% url 'lift' %}" role="button" class="btn btn-dark fs-4">View Live Schedule</a>
+  </div>
+</div>

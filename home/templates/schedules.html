@@ -18,7 +18,7 @@
             {% include 'layout/title.html'%}
         {% endblock %}
 
-            <div class="d-flex flex-equal w-100 my-3 ps-3">
+            <div class="d-flex flex-md-column flex-lg-row">
 
             {% block fitness %}
                 {% include 'layout/fitness.html'%}
@@ -30,15 +30,15 @@
 
             </div>
 
-            <div class="d-flex flex-equal w-100 my-3 ps-3">
+            <div class="d-flex flex-md-column flex-lg-row">
 
-                {% block boxing %}
-                    {% include 'layout/boxing.html'%}
-                {% endblock %}
-    
-                {% block studio %}
-                    {% include 'layout/studio.html'%}
-                {% endblock %}
+            {% block boxing %}
+                {% include 'layout/boxing.html'%}
+            {% endblock %}
+
+            {% block studio %}
+                {% include 'layout/studio.html'%}
+            {% endblock %}
                 
             </div>
 
