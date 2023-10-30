@@ -1,0 +1,12 @@
+.p-1x {
+    padding: 10%;
+}
+
+/* Adjust the text size of FullCalendar events */
+.fc table {
+    font-size: 1.7rem;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 2.5rem;
+}

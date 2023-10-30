@@ -1,10 +1,11 @@
 <script>
     const apiKey = "{{ google_api_key }}";
     const calendarId = "{{ boxing_calendar_id }}";
+    let calendar;
 
     document.addEventListener('DOMContentLoaded', function() {
         let calendarEl = document.getElementById('draw_calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar = new FullCalendar.Calendar(calendarEl, {
             
             googleCalendarApiKey: apiKey,
             events: {
@@ -12,16 +13,50 @@
             },
             initialView:'timeGridWeek',
             themeSystem: 'bootstrap5',
+            height: '100%',
             headerToolbar:{
-            start: 'prev', // will normally be on the left. if RTL, will be on the right
-            center: 'title',
-            end: 'today timeGridDay,timeGridWeek,dayGridMonth next' // will normally be on the right. if RTL, will be on the left
-            }
+                start: 'prev', // will normally be on the left. if RTL, will be on the right
+                center: 'title',
+                end: 'today timeGridDay,timeGridWeek,dayGridMonth next' // will normally be on the right. if RTL, will be on the left
+                },
         });
         calendar.render();
+
+        function switchView(view) {
+            calendar.changeView(view);
+        }
+
+        // Add a button to switch to List views on smaller screens
+        const switch2ListButton = document.createElement('button');
+        switch2ListButton.textContent = 'Switch to List View';
+        switch2ListButton.className = 'btn btn-primary d-none d-md-block fs-3'; // Hidden on mobile, visible on desktop
+        switch2ListButton.addEventListener('click', function() {
+            switchView('listWeek');
+        });
+
+        // Add a button to switch to back to Week view on larger screens
+        const switch2WeekButton = document.createElement('button');
+        switch2WeekButton.textContent = 'Switch to Week View';
+        switch2WeekButton.className = 'btn btn-secondary d-none d-md-block ms-2 fs-3'; // Hidden on mobile, visible on desktop
+        switch2WeekButton.addEventListener('click', function() {
+            switchView('timeGridWeek');
+        });
+
+        // Append button to the switch-to-list on the page
+        const listButtonContainer = document.getElementById('switch_to_list');
+        listButtonContainer.appendChild(switch2ListButton);
+
+        // Append button to switch-to-week on the page
+        const weekButtonContainer = document.getElementById('switch_to_week');
+        weekButtonContainer.appendChild(switch2WeekButton);
+
+        // Initial view based on screen width
+        if (window.innerWidth < breakpoint) {
+            switchView('listWeek');
+        }
     });
 </script>
 
-<div class="m-5">
-    <div id="draw_calendar"></div>
+<div class="mt-1x mx-5 h-100">
+    <div id="draw_calendar" class="mb-3"></div>
 </div>
