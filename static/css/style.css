@@ -78,7 +78,7 @@ i:hover, a:hover, .active {
     width: 5rem;
     border-radius: 50%;
     position: fixed;
-    top: 93vh; 
+    top: 80vh; 
     right: 5vw; 
     z-index: 2000;
     box-shadow: 0 1rem 3rem black;
