@@ -1,10 +1,12 @@
-<!-- Navbar -->
-<div class="d-flex flex-row justify-content-center align-items-center bg-dark px-5 py-1x">
+<!-- Navbar (Desktop ONLY) -->
+<div class="d-flex flex-row justify-content-center align-items-center bg-dark px-5 py-1x" id="desktop-menu">
+  <!-- Logo/Brand Info -->
   <div class="col-1 me-5">
     <a href="{{ g.url }}">
       <img src="{{ g.gym_logo.url }}" alt="Physique Magnifique" class="rounded-circle img-fluid" width="80%" height="80%">
     </a>
   </div>
+  <!-- Nav Items -->
   <div class="col-11">
     <a class="fs-3 text-decoration-none" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i></a>
     <a class="nl ms-3 text-decoration-none text-center {% if request.path == '/fitness' %}active{% endif %}" href="{% url 'fitness' %}">Fitness</a>

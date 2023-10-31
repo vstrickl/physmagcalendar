@@ -1,0 +1,71 @@
+tr {
+    height: 4rem;
+}
+
+a, i {
+    color: #4d4d4d;
+}
+
+i:hover, a:hover, .active {
+    color: #ffffff;
+}
+
+.p-1x {
+    padding: 10%;
+}
+
+.py-1x {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.mt-1x {
+    margin-top: 7%;
+}
+
+.nl {
+    font-size: 1.55rem;
+}
+
+/* Adjust the text size of FullCalendar events */
+.fc table {
+    font-size: 1.7rem;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 2.5rem;
+}
+
+.btn {
+    --bs-btn-font-size: 1.4rem;
+}
+
+/* Mobile Menu Styles (visible on small screens) */
+.mobile-menu {
+    display: none; /* Hide mobile menu by default */
+  }
+  
+/* Hamburger Button Styles */
+.menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    
+
+}
+
+@media (max-width: 991.5px) {
+
+    .desktop-menu {
+        display: none;
+    }
+    
+    .mobile-menu {
+        display: block;
+    }
+    
+}

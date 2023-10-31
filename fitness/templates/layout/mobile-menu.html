@@ -1,0 +1,25 @@
+<!-- Mobile Navigation Menu (Collapsible) -->
+<div class="mobile-menu">
+  <!-- Hamburger Placeholder -->
+  <input type="checkbox" id="menu-toggle" class="checkbox menu-toggle" />
+  <label for="menu-toggle" class="button">
+    <span class="icon">&nbsp;</span>
+  </label>
+  <!-- Mobile Menu Items (hidden by default) -->
+  <div class="nav nav-bg d-flex flex-column pt-1x px-1x">
+    <!-- Brand/Logo -->
+    <div class="me-5">
+      <a href="{{ g.url }}">
+        <img src="{{ g.gym_logo.url }}" alt="Physique Magnifique" class="rounded-circle img-fluid" width="50%" height="50%">
+      </a>
+    </div>
+    <!-- Nav Items -->
+    <div class="d-flex flex-column menu-items pt-4x">
+      <a class="fs-3 text-decoration-none ml" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left text-light"></i></a>
+      <a class="text-decoration-none ml" href="{% url 'fitness' %}">Fitness</a>
+      <a class="text-decoration-none ml" href="{% url 'lift' %}">Olympic Weightlifting</a>
+      <a class="text-decoration-none ml" href="{% url 'boxing' %}">Boxing</a>
+      <a class="text-decoration-none ml" href="{% url 'studio' %}">Martial Arts & Dance Studio</a>
+    </div>
+  </div>
+</div>
