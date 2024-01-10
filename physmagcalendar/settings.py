@@ -161,4 +161,4 @@ OWEIGHTLIFTING_CALENDAR_ID = config('OWEIGHTLIFTING_CALENDAR_ID')
 # CSRF Tokens
 # https://docs.djangoproject.com/en/4.2/howto/csrf/
 
-CSRF_TRUSTED_ORIGINS = ['https://calendar.physiquemagnifique.com/','http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = ['https://calendar.physiquemagnifique.com','http://127.0.0.1:8000']
