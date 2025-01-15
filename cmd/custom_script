@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Define cleanup function
+cleanup() {
+    echo -e " "
+    echo -e "${YELLOW}Stopping & Clearing Docker containers...${NC}"
+    docker compose down --remove-orphans
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Failed to stop Docker containers. Please check manually.${NC}"
+        echo -e " "
+    else
+        echo -e "${GREEN}Docker containers stopped successfully.${NC}"
+        echo -e " "
+    fi
+
+    echo -e " "
+    echo -e "${YELLOW}Stopping & Pruning Docker images...${NC}"
+    docker image prune -a
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}Failed to prune Docker images. Please check manually.${NC}"
+        echo -e " "
+    else
+        echo -e "${GREEN}Docker images pruned successfully.${NC}"
+        echo -e " "
+    fi
+}
+
+# Trap EXIT signal to run cleanup
+trap cleanup EXIT
+
+# Build the Docker images
+echo
+echo -e "${YELLOW}Building Docker images...${NC}"
+docker compose build web
+
+# Run the Container
+echo
+echo -e "${YELLOW}Running Docker container in Detached Mode...${NC}"
+docker compose up -d web --remove-orphans
+
+# Wait for a few seconds to ensure the container is fully up and running
+sleep 5
+
+# Get <api_data>
+echo
+echo -e "${YELLOW}Fetching ....${NC}"
+echo
+docker compose exec -e PYTHONUNBUFFERED=1 web sh -c "python /src/app/manage.py shell < /src/app/path/to_script.py"

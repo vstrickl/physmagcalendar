@@ -1,0 +1,148 @@
+name: Django CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  check_code:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+  
+    - name: Build Docker Image
+      run: docker build -t github_actions .
+
+    - name: Install Dependencies
+      run: |
+        pip install --no-cache-dir -r sdlc/requirements.txt
+        pip install --no-cache-dir -r app/requirements.txt
+
+    - name: Run Code Quality Checks
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DEBUG: ${{ vars.DEBUG }}
+        DBNAME: ${{ secrets.DBNAME }}
+        DBUSER: ${{ secrets.DBUSER }}
+        DBPWD: ${{ secrets.DBPWD }}
+        DBHOST: ${{ secrets.DBHOST }}
+        DBPORT: ${{ secrets.DBPORT }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}
+        STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}
+        FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}
+        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}
+        VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}
+      run: bash sdlc/check_code
+
+  verify_docker:
+    name: Verify Docker Image and Container
+    runs-on: ubuntu-latest
+    needs: check_code
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Build Docker Image
+      run: docker build -t github_actions .
+
+    - name: Create .env file
+      run: |
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+        echo "APP_NAME=test" >> .env
+        echo "DEBUG=false" >> .env
+        echo "DBNAME=${{ secrets.DBNAME }}" >> .env
+        echo "DBUSER=${{ secrets.DBUSER }}" >> .env
+        echo "DBPWD=${{ secrets.DBPWD }}" >> .env
+        echo "DBHOST=${{ secrets.DBHOST }}" >> .env
+        echo "DBPORT=${{ secrets.DBPORT }}" >> .env
+        echo "GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}" >> .env
+        echo "BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}" >> .env
+        echo "STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}" >> .env
+        echo "FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}" >> .env
+        echo "OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}" >> .env
+        echo "VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}" >> .env
+
+    - name: Clone scripts repository
+      run: |
+        git clone https://github.com/vstrickl/bin.git ~/bin
+
+    - name: Deploy Docker Image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        APP_NAME: ${{ secrets.APP_NAME }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DEBUG: ${{ vars.DEBUG }}
+        DBNAME: ${{ secrets.DBNAME }}
+        DBUSER: ${{ secrets.DBUSER }}
+        DBPWD: ${{ secrets.DBPWD }}
+        DBHOST: ${{ secrets.DBHOST }}
+        DBPORT: ${{ secrets.DBPORT }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}
+        STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}
+        FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}
+        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}
+        VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}
+      run: ~/bin/sdlc/verify_deploy
+
+  deploy:
+    name: Deploy Project to Docker
+    runs-on: ubuntu-latest
+    needs: verify_docker
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Build Docker Image
+      run: docker build -t github_actions .
+
+    - name: Create .env file
+      run: |
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+        echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
+        echo "DEBUG=${{ vars.DEBUG }}" >> .env
+        echo "DBNAME=${{ secrets.DBNAME }}" >> .env
+        echo "DBUSER=${{ secrets.DBUSER }}" >> .env
+        echo "DBPWD=${{ secrets.DBPWD }}" >> .env
+        echo "DBHOST=${{ secrets.DBHOST }}" >> .env
+        echo "DBPORT=${{ secrets.DBPORT }}" >> .env
+        echo "GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}" >> .env
+        echo "BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}" >> .env
+        echo "STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}" >> .env
+        echo "FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}" >> .env
+        echo "OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}" >> .env
+        echo "VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}" >> .env
+
+    - name: Clone scripts repository
+      run: |
+        git clone https://github.com/vstrickl/bin.git ~/bin
+  
+    - name: Deploy Docker Image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+        APP_NAME: ${{ secrets.APP_NAME }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DEBUG: ${{ vars.DEBUG }}
+        DBNAME: ${{ secrets.DBNAME }}
+        DBUSER: ${{ secrets.DBUSER }}
+        DBPWD: ${{ secrets.DBPWD }}
+        DBHOST: ${{ secrets.DBHOST }}
+        DBPORT: ${{ secrets.DBPORT }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}
+        STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}
+        FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}
+        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}
+        VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}
+      run: ~/bin/sdlc/deploy

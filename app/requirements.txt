@@ -1,0 +1,7 @@
+Django
+gunicorn
+Pillow
+psycopg2-binary
+python-decouple
+whitenoise
+django-debug-toolbar

@@ -1,1 +1,0 @@
-web: gunicorn physmagcalendar.wsgi

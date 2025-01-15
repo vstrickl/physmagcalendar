@@ -1,0 +1,26 @@
+### This image is for my Code Verificaiton process ###
+
+# Base image
+FROM python:3.12-slim
+
+# Set work directory
+WORKDIR /src
+
+# Install dependencies
+COPY sdlc/requirements.txt /src/sdlc/
+COPY app/requirements.txt /src/app/
+RUN pip install --no-cache-dir -r /src/sdlc/requirements.txt
+RUN pip install --no-cache-dir -r /src/app/requirements.txt
+
+# Copy the app files and sdlc scripts
+COPY . /src
+
+# Set environment variables (optional)
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Make the check_code.sh script executable
+RUN chmod +x /src/sdlc/check_code
+
+# Default command
+CMD ["/bin/bash"]

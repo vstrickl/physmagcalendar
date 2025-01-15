@@ -1,0 +1,36 @@
+### This image is for the Github Actions worklfow ###
+
+# Base image
+FROM python:3.12-slim
+
+# Set work directory
+WORKDIR /src/
+
+# Install Docker CLI
+RUN apt-get update && \
+    apt-get install -y docker.io && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install GitHub Actions
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    && curl -o act.tar.gz -L https://github.com/nektos/act/releases/download/v0.2.71/act_Linux_arm64.tar.gz \
+    && tar -xzf act.tar.gz -C /usr/local/bin \
+    && rm act.tar.gz 
+
+# Set environment variables (optional)
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Copy the app files and sdlc scripts
+COPY . /src/
+
+RUN ls -la /src
+RUN ls -la /src/sdlc
+
+# Make the check_code.sh script executable
+RUN chmod +x /src/sdlc/gh_test
+
+# Default command
+CMD ["/bin/bash"]

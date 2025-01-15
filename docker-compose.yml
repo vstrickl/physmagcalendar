@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:13
+    platform: linux/amd64
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DBNAME}
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASSWORD: ${DBPWD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DBUSER} -d ${DBNAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    image: ${APP_NAME}:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/src/app 
+    env_file:
+      - ./.env
+    environment:
+      DJANGO_SETTINGS_MODULE: physmagcalendar.settings
+      APP_NAME: ${APP_NAME}
+    depends_on:
+      - postgres
+
+  check_code:
+    build:
+      context: .
+      dockerfile: Dockerfile.scripts
+    volumes:
+      - ./sdlc:/src/sdlc
+    command: /src/sdlc/check_code
+
+    env_file:
+      - ./.env
+    depends_on:
+      - web
+
+  github_actions:
+    build:
+      context: .
+      dockerfile: Dockerfile.act
+    environment:
+      DOCKER_USERNAME: ${DOCKER_USERNAME}
+      DOCKER_ACCESS_TOKEN: ${DOCKER_ACCESS_TOKEN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./sdlc:/src/sdlc
+    command: /src/sdlc/gh_test
+    env_file:
+      - ./.env
+
+volumes:
+  postgres_data:
