@@ -4,5 +4,13 @@
 
 {% block body %}
     <div id="react-calendar"></div>
+
+    <!-- Define the variables -->
+    <script>
+        window.studioCalendarId = "{{ studio_calendar|escapejs }}";
+        window.vonsPrivatesId = "{{ vons_privates|escapejs }}";
+    </script>
+
+    <!-- Load the React script -->
     <script src="{{ studio_js }}" defer></script>
 {% endblock %}

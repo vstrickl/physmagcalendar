@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import FullCalendar from '@fullcalendar/react';
-import timeGridPlugin from '@fullcalendar/timegrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 const CalendarComponent = () => {
-    const studio_id = import.meta.env.VITE_STUDIO_CALENDAR_ID;
-    const von_privates_id = import.meta.env.VITE_VONS_PRIVATES_ID;
+    const studio_id = window.studioCalendarId;
+    const von_privates_id = window.vonsPrivatesId;
+
+    console.log('Calendar IDs from window:', { studio_id, von_privates_id });
 
     return (
         <FullCalendar
@@ -17,14 +19,12 @@ const CalendarComponent = () => {
                 right: 'timeGridWeek,timeGridFourDay,timeGridDay,next'
             }}
             events={(info, successCallback, failureCallback) => {
-                // Check if calendar IDs are defined before making requests
                 if (!studio_id || !von_privates_id) {
-                    console.error('Calendar IDs not found in environment variables');
+                    console.error('Calendar IDs not found in window object');
                     failureCallback(new Error('Calendar IDs not configured'));
                     return;
                 }
-
-                // Fetch events for both calendars
+                
                 Promise.all([
                     fetch(`/studio/api/calendar/${encodeURIComponent(studio_id)}/`),
                     fetch(`/studio/api/calendar/${encodeURIComponent(von_privates_id)}/`)
@@ -44,20 +44,35 @@ const CalendarComponent = () => {
                     return Promise.all(responses.map(res => res.json()));
                 })
                 .then(([studioEvents, privateEvents]) => {
-                    console.log('Received events:', {
-                        studio: studioEvents,
-                        private: privateEvents
+                    const formattedEvents = [
+                        ...studioEvents.map(event => ({
+                            title: event.summary,
+                            start: event.start.dateTime || event.start.date,
+                            end: event.end.dateTime || event.end.date,
+                            description: event.description,
+                            location: event.location,
+                            source: 'studio',
+                            color: '#3788d8'  // Blue for studio events
+                        })),
+                        ...privateEvents.map(event => ({
+                            title: event.summary,
+                            start: event.start.dateTime || event.start.date,
+                            end: event.end.dateTime || event.end.date,
+                            description: event.description,
+                            location: event.location,
+                            source: 'private',
+                            color: '#28a745'  // Green for private events
+                        }))
+                    ];
+                    
+                    console.log('Formatted events:', {
+                        total: formattedEvents.length,
+                        studio: formattedEvents.filter(e => e.source === 'studio').length,
+                        private: formattedEvents.filter(e => e.source === 'private').length,
+                        sampleStudio: formattedEvents.find(e => e.source === 'studio'),
+                        samplePrivate: formattedEvents.find(e => e.source === 'private')
                     });
 
-                    const formattedEvents = [...studioEvents, ...privateEvents].map(event => ({
-                        title: event.summary,
-                        start: event.start.dateTime || event.start.date,
-                        end: event.end.dateTime || event.end.date,
-                        description: event.description,
-                        location: event.location,
-                    }));
-                    
-                    console.log('Formatted events:', formattedEvents);
                     successCallback(formattedEvents);
                 })
                 .catch(error => {
