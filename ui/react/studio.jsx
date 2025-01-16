@@ -18,6 +18,8 @@ const CalendarComponent = () => {
                 center: 'Martial Arts Studio',
                 right: 'timeGridWeek,timeGridFourDay,timeGridDay,next'
             }}
+            firstDay={1} // Set the first day of the week to Monday (0 = Sunday, 1 = Monday)
+            slotMinTime="12:00:00" 
             events={(info, successCallback, failureCallback) => {
                 if (!studio_id || !von_privates_id) {
                     console.error('Calendar IDs not found in window object');
@@ -52,7 +54,7 @@ const CalendarComponent = () => {
                             description: event.description,
                             location: event.location,
                             source: 'studio',
-                            color: '#3788d8'  // Blue for studio events
+                            color: '#D50000'  // Blue for studio events
                         })),
                         ...privateEvents.map(event => ({
                             title: event.summary,
@@ -61,7 +63,7 @@ const CalendarComponent = () => {
                             description: event.description,
                             location: event.location,
                             source: 'private',
-                            color: '#28a745'  // Green for private events
+                            color: '#3F51B5'  // Green for private events
                         }))
                     ];
                     

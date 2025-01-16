@@ -31,6 +31,8 @@ services:
     command: /src/sdlc/gh_test
     env_file:
       - ./.env
-
-volumes:
-  postgres_data:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Add this line
+      - .:/src  # Also mount your source code
+    depends_on:
+      - web
