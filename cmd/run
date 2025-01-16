@@ -3,8 +3,4 @@
 
 # Run the application (e.g., Gunicorn, Django, or other)
 gunicorn --bind 0.0.0.0:8000 physmagcalendar.wsgi:application \
-    --chdir app \
-    --workers 2 \
-    --threads 4 \
-    --worker-class gthread \
-    --timeout 120
+    --chdir app

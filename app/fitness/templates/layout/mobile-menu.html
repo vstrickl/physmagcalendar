@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Mobile Navigation Menu (Collapsible) -->
 <div class="mobile-menu">
   <!-- Hamburger Placeholder -->
@@ -10,7 +11,7 @@
     <!-- Brand/Logo -->
     <div class="me-5">
       <a href="{{ g.url }}">
-        <img src="{{ g.gym_logo.url }}" alt="Physique Magnifique" class="rounded-circle img-fluid" width="50%" height="50%">
+        <img src="{% static 'images/physmag_logo.png' %}" alt="Physique Magnifique" class="rounded-circle img-fluid" width="50%" height="50%">
       </a>
     </div>
     <!-- Nav Items -->

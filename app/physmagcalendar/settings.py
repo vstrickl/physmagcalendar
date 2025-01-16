@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
 
     # Native Apps
     'home',
@@ -63,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'physmagcalendar.urls'
@@ -139,6 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 MY_PROJECT_STATIC_FILES = os.path.join(BASE_DIR, 'static')
+REACT = os.path.join(BASE_DIR, 'static', 'react')
 
 # URL to use when referring to static files located in STATIC_ROOT.
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -154,7 +153,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-STATICFILES_DIRS
 
 STATICFILES_DIRS = [
-    MY_PROJECT_STATIC_FILES
+    MY_PROJECT_STATIC_FILES,
+    REACT
 ]
 
 # Compression and Caching support for static files
@@ -170,6 +170,11 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CSRF Tokens
+# https://docs.djangoproject.com/en/4.2/howto/csrf/
+
+CSRF_TRUSTED_ORIGINS = ['https://calendar.physiquemagnifique.com','http://127.0.0.1:8000']
+
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
@@ -177,14 +182,9 @@ SESSION_COOKIE_SECURE = True
 # FullCalendar Secrets
 # https://fullcalendar.io/
 
-GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+GOOGLE_CREDS = os.path.join(BASE_DIR, 'credentials.json')
 BOXING_CALENDAR_ID = config('BOXING_CALENDAR_ID')
 STUDIO_CALENDAR_ID = config('STUDIO_CALENDAR_ID')
 FITNESS_CALENDAR_ID = config('FITNESS_CALENDAR_ID')
 OWEIGHTLIFTING_CALENDAR_ID = config('OWEIGHTLIFTING_CALENDAR_ID')
 VONS_PRIVATES_ID = config('VONS_PRIVATES_ID')
-
-# CSRF Tokens
-# https://docs.djangoproject.com/en/4.2/howto/csrf/
-
-CSRF_TRUSTED_ORIGINS = ['https://calendar.physiquemagnifique.com','http://127.0.0.1:8000']

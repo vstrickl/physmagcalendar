@@ -1,7 +1,9 @@
 Django
+google-auth
+google-auth-oauthlib
+google-api-python-client
 gunicorn
 Pillow
 psycopg2-binary
 python-decouple
 whitenoise
-django-debug-toolbar

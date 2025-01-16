@@ -1,26 +1,23 @@
+"""This Module creates the Home Page UI view."""
+# pylint: disable=no-member
+
 from django.shortcuts import render
 
-# Create your views here.
-
-from .models import GymInfo
 from boxing.models import BoxingClass
 from fitness.models import FitnessClass
 from oweightlifting.models import LiftingClass
 from studio.models import StudioClass
 
+# Create your views here.
 def home(request):
-
-    title = 'Schedule'
-
-    gym_info = GymInfo.objects.get(pk=1)
+    """This function renders the home page."""
     boxing = BoxingClass.objects.all()
     fitness = FitnessClass.objects.all()
     lifting = LiftingClass.objects.all()
     studio = StudioClass.objects.all()
 
     context = {
-        'title':title,
-        'g':gym_info,
+        'title':'Schedule',
         'boxing':boxing,
         'fitness':fitness,
         'lifting':lifting,

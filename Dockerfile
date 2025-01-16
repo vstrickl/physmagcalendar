@@ -10,6 +10,15 @@ ENV PYTHONUNBUFFERED=1
 RUN groupadd -g 1001 appgroup && \
     useradd -u 1001 -g appgroup -m appuser
 
+# Install Node.js, npm, and build tools
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Setup working directory
 WORKDIR /src
 
@@ -20,8 +29,16 @@ RUN pip install --no-cache-dir -r /src/app/requirements.txt
 # Copy project
 COPY . /src/
 
-# Make the check_code.sh script executable
-RUN chmod +x /src/sdlc/check_code
+# Return to the Django project root
+WORKDIR /src
+
+# Install npm dep & React Components
+WORKDIR /src/ui
+RUN npm install
+RUN npm run build
+
+# Return to the Django project root
+WORKDIR /src
 
 # Change ownership of /src to the non-root user
 RUN chown -R appuser:appgroup /src
@@ -29,13 +46,12 @@ RUN chown -R appuser:appgroup /src
 # Switch to the non-root user
 USER appuser
 
-# Debug PATH after switching to appuser
-RUN echo "PATH after switch: $PATH"
-RUN ls /usr/local/bin
-RUN which gunicorn
-
-# Enable static file caching
+# Collect Django static files (includes React build files)
 RUN python app/manage.py collectstatic --noinput
+
+# Double check React files exist in Django project
+RUN ls -a /src/app/static/react/.vite
+RUN ls -a /src/app/static/react/assets 
 
 # Expose the application port
 EXPOSE 8000
