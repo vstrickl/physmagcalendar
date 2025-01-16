@@ -33,12 +33,12 @@ jobs:
         DBPWD: ${{ secrets.DBPWD }}
         DBHOST: ${{ secrets.DBHOST }}
         DBPORT: ${{ secrets.DBPORT }}
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}
-        STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}
-        FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}
-        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}
-        VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}
+        GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
+        BOXING_CALENDAR_ID: ${{ secrets.VITE_BOXING_CALENDAR_ID }}
+        STUDIO_CALENDAR_ID: ${{ secrets.VITE_STUDIO_CALENDAR_ID }}
+        FITNESS_CALENDAR_ID: ${{ secrets.VITE_FITNESS_CALENDAR_ID}}
+        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.VITE_OWEIGHTLIFTING_CALENDAR_ID }}
+        VONS_PRIVATES_ID: ${{ secrets.VITE_VONS_PRIVATES_ID }}
       run: bash sdlc/check_code
 
   verify_docker:
@@ -63,12 +63,12 @@ jobs:
         echo "DBPWD=${{ secrets.DBPWD }}" >> .env
         echo "DBHOST=${{ secrets.DBHOST }}" >> .env
         echo "DBPORT=${{ secrets.DBPORT }}" >> .env
-        echo "GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}" >> .env
-        echo "BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}" >> .env
-        echo "STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}" >> .env
-        echo "FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}" >> .env
-        echo "OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}" >> .env
-        echo "VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}" >> .env
+        echo "GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}" >> .env
+        echo "BOXING_CALENDAR_ID: ${{ secrets.VITE_BOXING_CALENDAR_ID }}" >> .env
+        echo "STUDIO_CALENDAR_ID: ${{ secrets.VITE_STUDIO_CALENDAR_ID }}" >> .env
+        echo "FITNESS_CALENDAR_ID: ${{ secrets.VITE_FITNESS_CALENDAR_ID}}" >> .env
+        echo "OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.VITE_OWEIGHTLIFTING_CALENDAR_ID }}" >> .env
+        echo "VONS_PRIVATES_ID: ${{ secrets.VITE_VONS_PRIVATES_ID }}" >> .env
 
     - name: Clone scripts repository
       run: |
@@ -86,12 +86,12 @@ jobs:
         DBPWD: ${{ secrets.DBPWD }}
         DBHOST: ${{ secrets.DBHOST }}
         DBPORT: ${{ secrets.DBPORT }}
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}
-        STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}
-        FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}
-        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}
-        VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}
+        GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
+        BOXING_CALENDAR_ID: ${{ secrets.VITE_BOXING_CALENDAR_ID }}
+        STUDIO_CALENDAR_ID: ${{ secrets.VITE_STUDIO_CALENDAR_ID }}
+        FITNESS_CALENDAR_ID: ${{ secrets.VITE_FITNESS_CALENDAR_ID}}
+        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.VITE_OWEIGHTLIFTING_CALENDAR_ID }}
+        VONS_PRIVATES_ID: ${{ secrets.VITE_VONS_PRIVATES_ID }}
       run: ~/bin/sdlc/verify_deploy
 
   deploy:
@@ -116,12 +116,12 @@ jobs:
         echo "DBPWD=${{ secrets.DBPWD }}" >> .env
         echo "DBHOST=${{ secrets.DBHOST }}" >> .env
         echo "DBPORT=${{ secrets.DBPORT }}" >> .env
-        echo "GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}" >> .env
-        echo "BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}" >> .env
-        echo "STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}" >> .env
-        echo "FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}" >> .env
-        echo "OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}" >> .env
-        echo "VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}" >> .env
+        echo "GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}" >> .env
+        echo "BOXING_CALENDAR_ID: ${{ secrets.VITE_BOXING_CALENDAR_ID }}" >> .env
+        echo "STUDIO_CALENDAR_ID: ${{ secrets.VITE_STUDIO_CALENDAR_ID }}" >> .env
+        echo "FITNESS_CALENDAR_ID: ${{ secrets.VITE_FITNESS_CALENDAR_ID}}" >> .env
+        echo "OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.VITE_OWEIGHTLIFTING_CALENDAR_ID }}" >> .env
+        echo "VONS_PRIVATES_ID: ${{ secrets.VITE_VONS_PRIVATES_ID }}" >> .env
 
     - name: Clone scripts repository
       run: |
@@ -139,10 +139,10 @@ jobs:
         DBPWD: ${{ secrets.DBPWD }}
         DBHOST: ${{ secrets.DBHOST }}
         DBPORT: ${{ secrets.DBPORT }}
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        BOXING_CALENDAR_ID: ${{ secrets.BOXING_CALENDAR_ID }}
-        STUDIO_CALENDAR_ID: ${{ secrets.STUDIO_CALENDAR_ID }}
-        FITNESS_CALENDAR_ID: ${{ secrets.FITNESS_CALENDAR_ID}}
-        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.OWEIGHTLIFTING_CALENDAR_ID }}
-        VONS_PRIVATES_ID: ${{ secrets.VONS_PRIVATES_ID }}
+        GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
+        BOXING_CALENDAR_ID: ${{ secrets.VITE_BOXING_CALENDAR_ID }}
+        STUDIO_CALENDAR_ID: ${{ secrets.VITE_STUDIO_CALENDAR_ID }}
+        FITNESS_CALENDAR_ID: ${{ secrets.VITE_FITNESS_CALENDAR_ID}}
+        OWEIGHTLIFTING_CALENDAR_ID: ${{ secrets.VITE_OWEIGHTLIFTING_CALENDAR_ID }}
+        VONS_PRIVATES_ID: ${{ secrets.VITE_VONS_PRIVATES_ID }}
       run: ~/bin/sdlc/deploy

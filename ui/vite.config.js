@@ -11,4 +11,14 @@ export default defineConfig({
             input: './react/studio.jsx', // Use React entry point
         },
     },
+    resolve: {
+        dedupe: ['react', 'react-dom'],
+    },
+    optimizeDeps: {
+        include: [
+            '@fullcalendar/react',
+            '@fullcalendar/timegrid',
+            '@fullcalendar/google-calendar'
+        ]
+    }
 });
