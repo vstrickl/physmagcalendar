@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# List of required environment variables
+REQUIRED_VARS=(
+    "SECRET_KEY"
+    "APP_NAME"
+    "DEBUG"
+    "DBNAME"
+    "DBUSER"
+    "DBPWD"
+    "DBHOST"
+    "DBPORT"
+    "GOOGLE_API_KEY"
+    "BOXING_CALENDAR_ID"
+    "STUDIO_CALENDAR_ID"
+    "FITNESS_CALENDAR_ID"
+    "OWEIGHTLIFTING_CALENDAR_ID"
+    "VONS_PRIVATES_ID"
+)
+
+echo -e "\n=== Environment Variable Status ==="
+echo -e "true = exists | null = empty | invalid = missing\n"
+
+# Check each variable
+for VAR in "${REQUIRED_VARS[@]}"; do
+    # Use parameter expansion to get the value
+    VALUE=${!VAR}
+    
+    if [ -z "${VALUE+x}" ]; then
+        # Variable is unset
+        STATUS="invalid"
+    elif [ -z "$VALUE" ]; then
+        # Variable is set but empty
+        STATUS="null"
+    else
+        # Variable exists and has a value
+        STATUS="true"
+    fi
+    
+    echo "$VAR: $STATUS"
+done
+
+echo -e "\n================================="
