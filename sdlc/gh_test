@@ -6,29 +6,32 @@ source /src/sdlc/colors || { echo -e "\033[0;31mError: Colors file not found. Pr
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+# Function to load environment variables from .env file
+load_env() {
+    if [ -f "/src/.env" ]; then
+        echo -e "${GREEN:-\033[0;32m}Loading secrets from .env file...${NC:-\033[0m}"
+        export $(cat /src/.env | sed 's/#.*//g' | xargs)
+    else
+        echo -e "${RED:-\033[0;31m}Error: .env file not found in /src/.env${NC:-\033[0m}"
+        exit 1
+    fi
+}
+
 # Run GitHub Actions simulation
 run_github_actions() {
     local job_name=$1
     echo -e "${YELLOW:-\033[0;33m}Running $job_name job...${NC:-\033[0m}"
+
+    # Load environment variables before running act
+    load_env
+
     act -W /src/.github/workflows/ci.yml \
         --container-architecture linux/amd64 \
         -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:act-latest \
-        -s DOCKER_USERNAME \
-        -s DOCKER_ACCESS_TOKEN \
-        -s SECRET_KEY=test-key \
-        -s DEBUG=true \
-        -s DBNAME \
-        -s DBUSER \
-        -s DBPWD \
-        -s DBHOST \
-        -s DBPORT \
-        -s APP_NAME \
-        -s GOOGLE_API_KEY \
-        -s BOXING_CALENDAR_ID=test-id \
-        -s STUDIO_CALENDAR_ID \
-        -s FITNESS_CALENDAR_ID \
-        -s OWEIGHTLIFTING_CALENDAR_ID \
-        -s VONS_PRIVATES_ID \
+        --env-file=/src/.env \
+        --secret DOCKER_USERNAME="$DOCKER_USERNAME" \
+        --secret DOCKER_ACCESS_TOKEN="$DOCKER_ACCESS_TOKEN" \
+        --secret APP_NAME="$(grep APP_NAME /src/.env | cut -d '=' -f2)" \
         --job "$job_name"
 
     echo -e "${GREEN:-\033[0;32m}$job_name job completed successfully!${NC:-\033[0m}"

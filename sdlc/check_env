@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit on any error
+set -e
+
 # List of required environment variables
 REQUIRED_VARS=(
     "SECRET_KEY"
@@ -21,6 +24,9 @@ REQUIRED_VARS=(
 echo -e "\n=== Environment Variable Status ==="
 echo -e "true = exists | null = empty | invalid = missing\n"
 
+ERROR_COUNT=0
+MISSING_VARS=()
+
 # Check each variable
 for VAR in "${REQUIRED_VARS[@]}"; do
     # Use parameter expansion to get the value
@@ -29,9 +35,13 @@ for VAR in "${REQUIRED_VARS[@]}"; do
     if [ -z "${VALUE+x}" ]; then
         # Variable is unset
         STATUS="invalid"
+        ERROR_COUNT=$((ERROR_COUNT + 1))
+        MISSING_VARS+=("$VAR [invalid]")
     elif [ -z "$VALUE" ]; then
         # Variable is set but empty
         STATUS="null"
+        ERROR_COUNT=$((ERROR_COUNT + 1))
+        MISSING_VARS+=("$VAR [null]")
     else
         # Variable exists and has a value
         STATUS="true"
@@ -41,3 +51,15 @@ for VAR in "${REQUIRED_VARS[@]}"; do
 done
 
 echo -e "\n================================="
+
+# If any variables are missing or empty, exit with error
+if [ $ERROR_COUNT -gt 0 ]; then
+    echo -e "\n❌ ERROR: Missing or invalid environment variables detected!"
+    echo "The following variables need to be set:"
+    printf '%s\n' "${MISSING_VARS[@]}"
+    echo -e "\nPlease set all required environment variables before proceeding."
+    exit 1
+fi
+
+echo -e "\n✅ All environment variables are properly set!"
+exit 0

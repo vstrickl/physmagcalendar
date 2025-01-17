@@ -1,6 +1,23 @@
 services:
+  postgres:
+    image: postgres:13
+    platform: linux/amd64
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DBNAME}
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASSWORD: ${DBPWD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DBUSER} -d ${DBNAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   web:
-    build: .
+    build:
+      context: .
     image: ${APP_NAME}:latest
     ports:
       - "8000:8000"
@@ -9,6 +26,8 @@ services:
     environment:
       DJANGO_SETTINGS_MODULE: physmagcalendar.settings
       APP_NAME: ${APP_NAME}
+    depends_on:
+      - postgres
 
   check_code:
     build:
@@ -36,3 +55,6 @@ services:
       - .:/src  # Also mount your source code
     depends_on:
       - web
+
+volumes:
+  postgres_data:

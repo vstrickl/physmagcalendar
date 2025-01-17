@@ -53,9 +53,6 @@ RUN python app/manage.py collectstatic --noinput
 RUN ls -a /src/app/static/react/.vite
 RUN ls -a /src/app/static/react/assets 
 
-RUN chmod +x /src/sdlc/check_env
-RUN /src/sdlc/check_env
-
 # Expose the application port
 EXPOSE 8000
 
