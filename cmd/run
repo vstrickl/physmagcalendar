@@ -11,4 +11,5 @@ gunicorn --bind 0.0.0.0:8000 physmagcalendar.wsgi:application \
     --max-requests-jitter 50 \
     --limit-request-line 4096 \
     --limit-request-fields 100 \
+    --log-level debug \
     --preload 
