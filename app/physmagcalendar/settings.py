@@ -102,7 +102,7 @@ try:
             'CONN_HEALTH_CHECKS': True,
             'OPTIONS': {
                 'connect_timeout': 10,
-        },
+            },
         }
     }
 except UndefinedValueError as e:
@@ -192,13 +192,3 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
-
-# FullCalendar Secrets
-# https://fullcalendar.io/
-
-GOOGLE_CREDS = os.path.join(BASE_DIR, 'credentials.json')
-BOXING_CALENDAR_ID = config('BOXING_CALENDAR_ID', default='')
-STUDIO_CALENDAR_ID = config('STUDIO_CALENDAR_ID', default='')
-FITNESS_CALENDAR_ID = config('FITNESS_CALENDAR_ID', default='')
-OWEIGHTLIFTING_CALENDAR_ID = config('OWEIGHTLIFTING_CALENDAR_ID', default='')
-VONS_PRIVATES_ID = config('VONS_PRIVATES_ID', default='')

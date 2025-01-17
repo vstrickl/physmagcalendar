@@ -1,6 +1,5 @@
 """This Module creates the Home Page UI view."""
 # pylint: disable=no-member
-
 from django.db import connections
 from django.http import HttpResponse
 from django.shortcuts import render
