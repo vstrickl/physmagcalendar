@@ -97,6 +97,11 @@ try:
             'PASSWORD': config('DBPWD', default=''),
             'HOST': config('DBHOST', default='localhost'),
             'PORT': config('DBPORT', default='5432'),
+            'CONN_MAX_AGE': 60,  # 1 minute connection persistence
+            'CONN_HEALTH_CHECKS': True,
+            'OPTIONS': {
+                'connect_timeout': 10,
+        },
         }
     }
 except UndefinedValueError as e:
@@ -160,7 +165,7 @@ STATICFILES_DIRS = [
 # Compression and Caching support for static files
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
 # Google Calendar APIs
@@ -178,6 +183,14 @@ CSRF_TRUSTED_ORIGINS = ['https://calendar.physiquemagnifique.com','http://127.0.
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
+
+# Add caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
 
 # FullCalendar Secrets
 # https://fullcalendar.io/

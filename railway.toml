@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+buildCommand = "python app/manage.py collectstatic --noinput"
+
+[deploy]
+startCommand = "gunicorn --bind 0.0.0.0:8000 --workers 1 --threads 2 --timeout 60 --worker-class gthread --max-requests 1000 --max-requests-jitter 50 --preload physmagcalendar.wsgi:application --chdir app"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 5

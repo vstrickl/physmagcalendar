@@ -3,15 +3,12 @@
 
 # Run the application (e.g., Gunicorn, Django, or other)
 gunicorn --bind 0.0.0.0:8000 physmagcalendar.wsgi:application \
+    --chdir app \
     --workers 2 \
-    --worker-class gevent \
     --threads 1 \
     --timeout 30 \
     --max-requests 1000 \
     --max-requests-jitter 50 \
     --limit-request-line 4096 \
     --limit-request-fields 100 \
-    --limit-request-field-size 8190 \
-    --preload \
-    --chdir app \
-    physmagcalendar.wsgi:application
+    --preload 
