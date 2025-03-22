@@ -82,7 +82,6 @@ jobs:
       run: |
         echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
         echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-        echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
         echo "DEBUG=${{ vars.DEBUG }}" >> .env
         echo "DBNAME=${{ secrets.DBNAME }}" >> .env
         echo "DBUSER=${{ secrets.DBUSER }}" >> .env

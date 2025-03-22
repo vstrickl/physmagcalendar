@@ -32,7 +32,8 @@ ALLOWED_HOSTS = [
     'localhost',
     'testserver',
     '.railway.app',
-    '.physiquemagnifique.com'
+    '.physiquemagnifique.com',
+    '10.0.0.120'
 ]
 
 
@@ -143,7 +144,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 MY_PROJECT_STATIC_FILES = os.path.join(BASE_DIR, 'static')
-REACT = os.path.join(BASE_DIR, 'static', 'react')
 
 # URL to use when referring to static files located in STATIC_ROOT.
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -159,8 +159,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-STATICFILES_DIRS
 
 STATICFILES_DIRS = [
-    MY_PROJECT_STATIC_FILES,
-    REACT
+    MY_PROJECT_STATIC_FILES
 ]
 
 # Compression and Caching support for static files
@@ -192,3 +191,5 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+FEEDBACK_FORM = "https://forms.office.com/r/5hM91LHGFa"

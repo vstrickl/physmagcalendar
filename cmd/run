@@ -2,5 +2,4 @@
 # Set up networking, environment variables, etc.
 
 # Run the application (e.g., Gunicorn, Django, or other)
-gunicorn --bind 0.0.0.0:8000 physmagcalendar.wsgi:application \
-    --chdir app 
+gunicorn --bind 0.0.0.0:8000 physmagcalendar.wsgi:application --chdir app 

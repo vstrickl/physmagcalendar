@@ -1,18 +1,56 @@
 {% load static %}
-<!-- Navbar (Desktop ONLY) -->
-<div class="d-flex flex-row justify-content-center align-items-center bg-dark px-5 py-1x" id="desktop-menu">
-  <!-- Logo/Brand Info -->
-  <div class="col-1 me-5">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
     <a href="{{ g.url }}">
-      <img src="{% static 'images/physmag_logo.png' %}" alt="Physique Magnifique" class="rounded-circle img-fluid" width="80%" height="80%">
+      <img
+        src="{% static 'images/physmag_logo.png' %}"
+        class="rounded-circle img-fluid"
+        alt="Physique Magnifique"
+        width="20%" height="20%"
+      >
     </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item me-3">
+          <a
+            class="fs-3 text-decoration-none"
+            href="{% url 'home' %}"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </li>
+        <li class="nav-item mx-2">
+          <a
+            class="fs-3 text-decoration-none"
+            href="{% url 'fitness' %}"
+          >Fitness</a>
+        </li>
+        <span class="fs-3">•</span>
+        <li class="nav-item mx-2">
+          <a
+            class="fs-3 text-decoration-none"
+            href="{% url 'lift' %}"
+          >Olympic Weightlifting</a>
+        </li>
+        <span class="fs-3">•</span>
+        <li class="nav-item mx-2">
+          <a
+            class="fs-3 text-decoration-none"
+            href="{% url 'boxing' %}"
+          >Boxing</a>
+        </li>
+        <span class="fs-3">•</span>
+        <li class="nav-item ms-2">
+          <a
+            class="fs-3 text-decoration-none"
+            href="{% url 'studio' %}"
+          >Martial Arts & Dance Studio</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <!-- Nav Items -->
-  <div class="col-11">
-    <a class="fs-3 text-decoration-none" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i></a>
-    <a class="nl ms-3 text-decoration-none text-center {% if request.path == '/fitness' %}active{% endif %}" href="{% url 'fitness' %}">Fitness</a>
-    <a class="nl ms-3 text-decoration-none text-center {% if request.path == '/weightlifting' %}active{% endif %}" href="{% url 'lift' %}">Olympic Weightlifting</a>
-    <a class="nl ms-3 text-decoration-none text-center {% if request.path == '/boxing' %}active{% endif %}" href="{% url 'boxing' %}">Boxing</a>
-    <a class="nl ms-3 text-decoration-none text-center {% if request.path == '/studio' %}active{% endif %}" href="{% url 'studio' %}">Martial Arts & Dance Studio</a>
-  </div>
-</div>
+</nav>
