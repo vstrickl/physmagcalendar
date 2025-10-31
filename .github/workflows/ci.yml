@@ -61,9 +61,9 @@ jobs:
         DBPWD=${{ secrets.DBPWD }}
         DBHOST=${{ secrets.DBHOST }}
         DBPORT=${{ secrets.DBPORT }}
-        CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
-        CLOUD_API_KEY: ${{ secrets.CLOUD_API_KEY }}
-        CLOUD_SECRET: ${{ secrets.CLOUD_SECRET }}
+        CLOUD_NAME=${{ secrets.CLOUD_NAME }}
+        CLOUD_API_KEY=${{ secrets.CLOUD_API_KEY }}
+        CLOUD_SECRET=${{ secrets.CLOUD_SECRET }}
         EOL
         chmod 600 .env
 
@@ -94,9 +94,9 @@ jobs:
         echo "DBPWD=${{ secrets.DBPWD }}" >> .env
         echo "DBHOST=${{ secrets.DBHOST }}" >> .env
         echo "DBPORT=${{ secrets.DBPORT }}" >> .env
-        echo "CLOUD_NAME: ${{ secrets.CLOUD_NAME }}" >> .env
-        echo "CLOUD_API_KEY: ${{ secrets.CLOUD_API_KEY }}" >> .env
-        echo "CLOUD_SECRET: ${{ secrets.CLOUD_SECRET }}" >> .env
+        echo "CLOUD_NAME=${{ secrets.CLOUD_NAME }}" >> .env
+        echo "CLOUD_API_KEY=${{ secrets.CLOUD_API_KEY }}" >> .env
+        echo "CLOUD_SECRET=${{ secrets.CLOUD_SECRET }}" >> .env
 
     - name: Clone scripts repository
       run: |
