@@ -5,26 +5,21 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.utils import OperationalError
 
-from boxing.models import BoxingClass
-from fitness.models import FitnessClass
-from oweightlifting.models import LiftingClass
-from studio.models import StudioClass
+from .models import UploadFile, GymInfo
 
 # Create your views here.
 def home(request):
     """This function renders the home page."""
-    boxing = BoxingClass.objects.all()
-    fitness = FitnessClass.objects.all()
-    lifting = LiftingClass.objects.all()
-    studio = StudioClass.objects.all()
+
+    # Fetch all uploaded files
+    uploaded_files = UploadFile.objects.all()
+    gym_info = GymInfo.objects.filter(is_active=True)
 
     context = {
-        'title':'Schedule',
-        'boxing':boxing,
-        'fitness':fitness,
-        'lifting':lifting,
-        'studio':studio,
+        'uploaded_files': uploaded_files,
+        'gym_info': gym_info
     }
+
     return render(request, 'schedules.html', context)
 
 def healthcheck(request):  # pylint: disable=unused-argument

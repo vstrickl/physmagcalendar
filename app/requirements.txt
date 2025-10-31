@@ -1,3 +1,4 @@
+cloudinary
 Django
 google-auth
 google-auth-oauthlib

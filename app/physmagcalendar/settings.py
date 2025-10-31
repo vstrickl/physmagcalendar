@@ -32,8 +32,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'testserver',
     '.railway.app',
-    '.physiquemagnifique.com',
-    '10.0.0.120'
+    '.physiquemagnifique.com'
 ]
 
 
@@ -49,10 +48,6 @@ INSTALLED_APPS = [
 
     # Native Apps
     'home',
-    'fitness',
-    'oweightlifting',
-    'boxing',
-    'studio'
 ]
 
 MIDDLEWARE = [
@@ -192,4 +187,12 @@ CACHES = {
     }
 }
 
-FEEDBACK_FORM = "https://forms.office.com/r/5hM91LHGFa"
+# Cloudinary
+CLOUDINARY = {
+    'cloud_name': config('CLOUD_NAME'),
+    'api_key': config('CLOUD_API_KEY'),
+    'api_secret': config('CLOUD_SECRET'),
+}
+
+# Maximum size for uploaded files (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
