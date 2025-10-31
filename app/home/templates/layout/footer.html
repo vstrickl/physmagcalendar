@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Footer -->
 <footer class="text-center mt-5 py-5 text-muted">
     {% for g in gym_info %}
@@ -7,6 +8,7 @@
             class="img-fluid pb-5" style="max-width: 10%;"
             alt="{{ g.name }}">
     </a>
+
     <p class="fs-4 mb-1">© {{ g.copyright_year }} <a href="{{ g.url }}" class="text-decoration-none">{{ g.name }}</a></p>
     <p class="fs-4">Got Questions? <a href="{{ g.email }}">Email Us!</a></p>
     <p class="fs-4"><a href="{{ g.feedback_form }}">Suggest a New App Feature or Report a Bug!</p>
