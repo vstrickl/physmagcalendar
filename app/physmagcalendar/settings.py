@@ -188,11 +188,19 @@ CACHES = {
 }
 
 # Cloudinary
-CLOUDINARY = {
-    'cloud_name': config('CLOUD_NAME'),
-    'api_key': config('CLOUD_API_KEY'),
-    'api_secret': config('CLOUD_SECRET'),
-}
+CLOUD_NAME = config("CLOUD_NAME", default=None)
+CLOUD_API_KEY = config("CLOUD_API_KEY", default=None)
+CLOUD_API_SECRET = config("CLOUD_API_SECRET", default=None)
+
+if CLOUD_NAME and CLOUD_API_KEY and CLOUD_API_SECRET:
+    CLOUDINARY = {
+        "cloud_name": CLOUD_NAME,
+        "api_key": CLOUD_API_KEY,
+        "api_secret": CLOUD_API_SECRET,
+    }
+else:
+    # Safe fallback so build doesn't crash
+    CLOUDINARY = {}
 
 # Maximum size for uploaded files (in bytes)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
