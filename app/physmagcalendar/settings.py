@@ -194,7 +194,7 @@ CACHES = {
 
 CLOUD_NAME = config("CLOUD_NAME", default=None)
 CLOUD_API_KEY = config("CLOUD_API_KEY", default=None)
-CLOUD_API_SECRET = config("CLOUD_API_SECRET", default=None)
+CLOUD_API_SECRET = config("CLOUD_SECRET", default=None)
 
 cloudinary.config(
     cloud_name=CLOUD_NAME,
